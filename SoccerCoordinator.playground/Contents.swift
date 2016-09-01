@@ -1,3 +1,14 @@
+// Variables
+
+var experiencedPlayers: [[String: String]] = []
+var inexperiencedPlayers: [[String: String]] = []
+
+// Creating Teams
+
+var dragons: [[String: String]] = []
+var sharks: [[String: String]] = []
+var raptors: [[String: String]] = []
+
 // Players
 
 let joeSmith: [String: String] = [
@@ -151,9 +162,6 @@ league.append(herschelKrustofski)
 
 // Separating experienced players from inexperienced ones
 
-var experiencedPlayers: [[String: String]] = []
-var inexperiencedPlayers: [[String: String]] = []
-
 for player in league {
     if player["experience"] == "YES" {
         experiencedPlayers.append(player)
@@ -161,12 +169,6 @@ for player in league {
         inexperiencedPlayers.append(player)
     }
 }
-
-// Creating Teams
-
-var dragons: [[String: String]] = []
-var sharks: [[String: String]] = []
-var raptors: [[String: String]] = []
 
 // Sorting Function
 
@@ -209,11 +211,14 @@ func sortTeams() {
     }
 }
 
-// Sorting
+// Sorting Function Execution
 
 sortTeams()
 
-// Function to Send letters to Guardians
+/* 
+Function to Send letters to Guardians. It accepts a team Array, and will iterate it 
+by using for/in to print letters with each player attributes.
+*/
 
 func sendLetters(team: [[String: String]]) {
     for player in team {
