@@ -9,6 +9,12 @@ var dragons: [[String: String]] = []
 var sharks: [[String: String]] = []
 var raptors: [[String: String]] = []
 
+// Ordered Players
+
+var heightOrderedExperiencedPlayers: [[String: String]] = []
+var heightOrderedInexperiencedPlayers: [[String: String]] = []
+var orderedLeague: [[String: String]] = []
+
 // Players
 
 let joeSmith: [String: String] = [
@@ -170,50 +176,48 @@ for player in league {
     }
 }
 
-// Sorting Function
+// Ordering Experienced and Inexperienced players by height; appending them to orderedLeague variable.
+
+heightOrderedExperiencedPlayers = experiencedPlayers.sort { $0["height"] < $1["height"] }
+heightOrderedInexperiencedPlayers = inexperiencedPlayers.sort { $0["height"] < $1["height"] }
+
+orderedLeague = (heightOrderedExperiencedPlayers) + (heightOrderedInexperiencedPlayers)
+
+// Sort players, 1 experienced 1 rookie, 1 tall, 1 short for each team.
 
 func sortTeams() {
     
-    // Sorting Experienced Players
-    
-    for i in 0..<experiencedPlayers.count {
-        if i % 3 == 0 {
-            experiencedPlayers[i].updateValue("dragons", forKey: "team")
-            experiencedPlayers[i].updateValue("March 17, 1pm", forKey: "practice")
-            dragons.append(experiencedPlayers[i])
-        } else if i % 3 == 1 {
-            experiencedPlayers[i].updateValue("sharks", forKey: "team")
-            experiencedPlayers[i].updateValue("March 17, 3pm", forKey: "practice")
-            sharks.append(experiencedPlayers[i])
-        } else {
-            experiencedPlayers[i].updateValue("raptors", forKey: "team")
-            experiencedPlayers[i].updateValue("March 18, 1pm", forKey: "practice")
-            raptors.append(experiencedPlayers[i])
-        }
+    while orderedLeague.count > 0 {
+        dragons.append(orderedLeague.removeFirst())
+        dragons.append(orderedLeague.removeLast())
+        sharks.append(orderedLeague.removeFirst())
+        sharks.append(orderedLeague.removeLast())
+        raptors.append(orderedLeague.removeFirst())
+        raptors.append(orderedLeague.removeLast())
     }
     
-    // Sorting Inexperienced Players
-    
-    for i in 0..<inexperiencedPlayers.count {
-        if i % 3 == 0 {
-            inexperiencedPlayers[i].updateValue("dragons", forKey: "team")
-            inexperiencedPlayers[i].updateValue("March 17, 1pm", forKey: "practice")
-            dragons.append(inexperiencedPlayers[i])
-        } else if i % 3 == 1 {
-            inexperiencedPlayers[i].updateValue("sharks", forKey: "team")
-            inexperiencedPlayers[i].updateValue("March 17, 3pm", forKey: "practice")
-            sharks.append(inexperiencedPlayers[i])
-        } else {
-            inexperiencedPlayers[i].updateValue("raptors", forKey: "team")
-            inexperiencedPlayers[i].updateValue("March 18, 1pm", forKey: "practice")
-            raptors.append(inexperiencedPlayers[i])
-        }
-    }
 }
 
 // Sorting Function Execution
 
 sortTeams()
+
+// Updating Teams Info
+
+for i in 0..<dragons.count {
+    dragons[i].updateValue("March 17, 1pm", forKey: "practice")
+    dragons[i].updateValue("Dragons", forKey: "team")
+}
+
+for i in 0..<sharks.count {
+    sharks[i].updateValue("March 17, 3pm", forKey: "practice")
+    sharks[i].updateValue("Sharks", forKey: "team")
+}
+
+for i in 0..<raptors.count {
+    raptors[i].updateValue("March 18, 1pm", forKey: "practice")
+    raptors[i].updateValue("Raptors", forKey: "team")
+}
 
 /* 
 Function to Send letters to Guardians. It accepts a team Array, and will iterate it 
